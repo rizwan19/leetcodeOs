@@ -1,7 +1,7 @@
 # Leetcode Progress Tracker
 
 **Goal:** 3 problems per week. Build confidence across all core patterns.
-**Started:** _(fill in when you start)_
+**Started:** 2026-07-18
 
 ---
 
@@ -10,13 +10,14 @@
 
 | Week | Completed | Target | Status |
 |------|-----------|--------|--------|
+| 2026-07-13 – 2026-07-19 | 1 | 3 | 🟡 in progress |
 
 ---
 
 ## Stats
-- Total solved: 0
-- Easy: 0 | Medium: 0 | Hard: 0
-- Tracker active since: _(fill in)_
+- Total solved: 1
+- Easy: 1 | Medium: 0 | Hard: 0
+- Tracker active since: 2026-07-18
 
 ---
 
@@ -25,6 +26,7 @@
 
 | Date | # | Title | Difficulty | Category | Attempts | Notes |
 |------|---|-------|------------|----------|----------|-------|
+| 2026-07-18 | 1 | Two Sum | Easy | Arrays & Hashing | 1 | Independent solve. Two-pass hashmap; handled `[3,3]` duplicate via `i != map.get(num)` check. Conf 4 only because one-pass wasn't obvious at first — derived it on his own after. |
 
 ---
 
@@ -33,6 +35,7 @@
 
 | # | Title | Last Review | Reps | EF | Interval (d) | Next Review | Fails | Skips |
 |---|-------|-------------|------|------|--------------|-------------|-------|-------|
+| 1 | Two Sum | 2026-07-18 | 1 | 2.50 | 3 | 2026-07-21 | 0 | 0 |
 
 ---
 
@@ -61,7 +64,7 @@
 
 | Pattern | Target | Solved | Gap | Last New | Days Stale | Priority |
 |---------|--------|--------|-----|----------|------------|----------|
-| Arrays & Hashing | 10 | 0 | **10** | never | — | 🔥 urgent |
+| Arrays & Hashing | 10 | 1 | **9** | 2026-07-18 | 0 | 🔥 urgent |
 | Two Pointers | 5 | 0 | **5** | never | — | 🔥 urgent |
 | Sliding Window | 6 | 0 | **6** | never | — | 🔥 urgent |
 | Stack | 7 | 0 | **7** | never | — | 🔥 urgent |
@@ -84,7 +87,7 @@
 
 | Category | Problems Solved | Coverage Notes |
 |----------|----------------|----------------|
-| Arrays & Hashing | 0 | Not started |
+| Arrays & Hashing | 1 | Started — hashmap complement trick (#1) |
 | Two Pointers | 0 | Not started |
 | Sliding Window | 0 | Not started |
 | Stack | 0 | Not started |
@@ -120,3 +123,8 @@ _(none yet — start solving and patterns with high Gap will surface here)_
 
 ## Session Notes
 <!-- Add notes from each session here -->
+
+### 2026-07-18 — Session 1 (first session)
+- Solved #1 Two Sum independently. Aha: store-what-you've-seen turns O(n²) pair-scanning into O(n).
+- Duplicate edge case `[3,3]` handled correctly with `i != map.get(num)`.
+- Derived the one-pass variant (check complement before insert) on his own after the two-pass solve — that was the conf-4 gap, now closed.
