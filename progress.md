@@ -10,13 +10,13 @@
 
 | Week | Completed | Target | Status |
 |------|-----------|--------|--------|
-| 2026-07-13 – 2026-07-19 | 2 | 3 | 🟡 in progress |
+| 2026-07-13 – 2026-07-19 | 3 | 3 | ✅ target hit |
 
 ---
 
 ## Stats
-- Total solved: 2
-- Easy: 2 | Medium: 0 | Hard: 0
+- Total solved: 3
+- Easy: 3 | Medium: 0 | Hard: 0
 - Tracker active since: 2026-07-18
 
 ---
@@ -26,6 +26,7 @@
 
 | Date | # | Title | Difficulty | Category | Attempts | Notes |
 |------|---|-------|------------|----------|----------|-------|
+| 2026-07-18 | 125 | Valid Palindrome | Easy | Two Pointers | 1 | Independent solve, conf 5. Wrote both variants: O(n)-space pre-clean via StringBuilder filter, then O(1)-space in-place — skip non-alphanumeric chars with move-then-compare + `continue`, `start < end` guard prevents overrun. Clear on the space tradeoff. |
 | 2026-07-18 | 167 | Two Sum II — Input Array Is Sorted | Easy | Two Pointers | 1 | Independent solve, conf 5. Correctly reasoned that sortedness enables O(1)-space two-pointer converge: sum>target → move right in, sum<target → move left in. Noted O(n/2)=O(n), beats hashmap on space. Solved directly after #1 — saw why input shape changes the optimal approach. |
 | 2026-07-18 | 1 | Two Sum | Easy | Arrays & Hashing | 1 | Independent solve. Two-pass hashmap; handled `[3,3]` duplicate via `i != map.get(num)` check. Conf 4 only because one-pass wasn't obvious at first — derived it on his own after. |
 
@@ -38,6 +39,7 @@
 |---|-------|-------------|------|------|--------------|-------------|-------|-------|
 | 1 | Two Sum | 2026-07-18 | 1 | 2.50 | 3 | 2026-07-21 | 0 | 0 |
 | 167 | Two Sum II — Input Array Is Sorted | 2026-07-18 | 1 | 2.60 | 3 | 2026-07-21 | 0 | 0 |
+| 125 | Valid Palindrome | 2026-07-18 | 1 | 2.60 | 3 | 2026-07-21 | 0 | 0 |
 
 ---
 
@@ -67,7 +69,7 @@
 | Pattern | Target | Solved | Gap | Last New | Days Stale | Priority |
 |---------|--------|--------|-----|----------|------------|----------|
 | Arrays & Hashing | 10 | 1 | **9** | 2026-07-18 | 0 | 🔥 urgent |
-| Two Pointers | 5 | 1 | **4** | 2026-07-18 | 0 | 🔥 urgent |
+| Two Pointers | 5 | 2 | **3** | 2026-07-18 | 0 | 🔥 urgent |
 | Sliding Window | 6 | 0 | **6** | never | — | 🔥 urgent |
 | Stack | 7 | 0 | **7** | never | — | 🔥 urgent |
 | Binary Search | 7 | 0 | **7** | never | — | 🔥 urgent |
@@ -90,7 +92,7 @@
 | Category | Problems Solved | Coverage Notes |
 |----------|----------------|----------------|
 | Arrays & Hashing | 1 | Started — hashmap complement trick (#1) |
-| Two Pointers | 1 | Started — sorted-array converge (#167) |
+| Two Pointers | 2 | sorted-array converge (#167), mirror-compare + in-place skip (#125) |
 | Sliding Window | 0 | Not started |
 | Stack | 0 | Not started |
 | Binary Search | 0 | Not started |
@@ -131,3 +133,4 @@ _(none yet — start solving and patterns with high Gap will surface here)_
 - Duplicate edge case `[3,3]` handled correctly with `i != map.get(num)`.
 - Derived the one-pass variant (check complement before insert) on his own after the two-pass solve — that was the conf-4 gap, now closed.
 - Solved #167 Two Sum II independently (conf 5) right after #1. Aha: a sorted array lets each comparison discard a whole set of candidate pairs, trading the hashmap's O(n) space for O(1). Clean articulation of when to reach for two-pointer vs. hashmap based on input shape.
+- Solved #125 Valid Palindrome independently (conf 5), both variants. Aha: no need to materialize a cleaned string — skip non-alphanumeric chars in place to drop from O(n) to O(1) space. Second core two-pointer shape (mirror-compare) alongside #167's converge-to-target. Hit weekly target 3/3.
