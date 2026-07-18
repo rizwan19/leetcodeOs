@@ -10,13 +10,13 @@
 
 | Week | Completed | Target | Status |
 |------|-----------|--------|--------|
-| 2026-07-13 – 2026-07-19 | 1 | 3 | 🟡 in progress |
+| 2026-07-13 – 2026-07-19 | 2 | 3 | 🟡 in progress |
 
 ---
 
 ## Stats
-- Total solved: 1
-- Easy: 1 | Medium: 0 | Hard: 0
+- Total solved: 2
+- Easy: 2 | Medium: 0 | Hard: 0
 - Tracker active since: 2026-07-18
 
 ---
@@ -26,6 +26,7 @@
 
 | Date | # | Title | Difficulty | Category | Attempts | Notes |
 |------|---|-------|------------|----------|----------|-------|
+| 2026-07-18 | 167 | Two Sum II — Input Array Is Sorted | Easy | Two Pointers | 1 | Independent solve, conf 5. Correctly reasoned that sortedness enables O(1)-space two-pointer converge: sum>target → move right in, sum<target → move left in. Noted O(n/2)=O(n), beats hashmap on space. Solved directly after #1 — saw why input shape changes the optimal approach. |
 | 2026-07-18 | 1 | Two Sum | Easy | Arrays & Hashing | 1 | Independent solve. Two-pass hashmap; handled `[3,3]` duplicate via `i != map.get(num)` check. Conf 4 only because one-pass wasn't obvious at first — derived it on his own after. |
 
 ---
@@ -36,6 +37,7 @@
 | # | Title | Last Review | Reps | EF | Interval (d) | Next Review | Fails | Skips |
 |---|-------|-------------|------|------|--------------|-------------|-------|-------|
 | 1 | Two Sum | 2026-07-18 | 1 | 2.50 | 3 | 2026-07-21 | 0 | 0 |
+| 167 | Two Sum II — Input Array Is Sorted | 2026-07-18 | 1 | 2.60 | 3 | 2026-07-21 | 0 | 0 |
 
 ---
 
@@ -65,7 +67,7 @@
 | Pattern | Target | Solved | Gap | Last New | Days Stale | Priority |
 |---------|--------|--------|-----|----------|------------|----------|
 | Arrays & Hashing | 10 | 1 | **9** | 2026-07-18 | 0 | 🔥 urgent |
-| Two Pointers | 5 | 0 | **5** | never | — | 🔥 urgent |
+| Two Pointers | 5 | 1 | **4** | 2026-07-18 | 0 | 🔥 urgent |
 | Sliding Window | 6 | 0 | **6** | never | — | 🔥 urgent |
 | Stack | 7 | 0 | **7** | never | — | 🔥 urgent |
 | Binary Search | 7 | 0 | **7** | never | — | 🔥 urgent |
@@ -88,7 +90,7 @@
 | Category | Problems Solved | Coverage Notes |
 |----------|----------------|----------------|
 | Arrays & Hashing | 1 | Started — hashmap complement trick (#1) |
-| Two Pointers | 0 | Not started |
+| Two Pointers | 1 | Started — sorted-array converge (#167) |
 | Sliding Window | 0 | Not started |
 | Stack | 0 | Not started |
 | Binary Search | 0 | Not started |
@@ -128,3 +130,4 @@ _(none yet — start solving and patterns with high Gap will surface here)_
 - Solved #1 Two Sum independently. Aha: store-what-you've-seen turns O(n²) pair-scanning into O(n).
 - Duplicate edge case `[3,3]` handled correctly with `i != map.get(num)`.
 - Derived the one-pass variant (check complement before insert) on his own after the two-pass solve — that was the conf-4 gap, now closed.
+- Solved #167 Two Sum II independently (conf 5) right after #1. Aha: a sorted array lets each comparison discard a whole set of candidate pairs, trading the hashmap's O(n) space for O(1). Clean articulation of when to reach for two-pointer vs. hashmap based on input shape.
