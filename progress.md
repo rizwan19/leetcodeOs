@@ -10,7 +10,7 @@
 
 | Week | Completed | Target | Status |
 |------|-----------|--------|--------|
-| 2026-08-24 – 2026-08-30 | 0 new (1 review) | 3 | 🔄 warm-up sprint after 42-day gap |
+| 2026-08-24 – 2026-08-30 | 0 new (2 reviews) | 3 | 🔄 warm-up sprint after 42-day gap |
 | 2026-07-13 – 2026-07-19 | 5 | 3 | ✅ target exceeded |
 
 ---
@@ -27,6 +27,7 @@
 
 | Date | # | Title | Difficulty | Category | Attempts | Notes |
 |------|---|-------|------------|----------|----------|-------|
+| 2026-08-30 | 167 | Two Sum II — Input Array Is Sorted | Easy | Two Pointers | 1 | **Review** (not a new solve — Stats/Pattern Targets unchanged). Independent re-solve, conf 5. Kotlin three-way branch on `sum` vs `target`, `while (left < right)`, 1-indexed return. Nailed the sortedness-replaces-the-hashmap point and both traps (1-indexing, strict `<` so no self-pairing). Needed one nudge on the discard proof: he argued *why not move left*, rather than the stronger claim that `numbers[right]` is eliminated from every remaining pair (all remaining candidates are ≥ `numbers[left]`, so all those sums exceed target) — that's what makes it O(n) instead of O(n²). |
 | 2026-08-30 | 1 | Two Sum | Easy | Arrays & Hashing | 1 | **Review** (not a new solve — Stats/Pattern Targets unchanged). Independent re-solve, conf 5 — up from conf 4 on the original. Kotlin one-pass, `forEachIndexed` with non-local return. Answered all three pre-code questions correctly and went straight to one-pass, closing the July conf-4 gap. Extended the look-before-insert rule from an efficiency argument to a correctness one after a nudge — insert-first returns `[0,0]` on `[3,3]`. Nit raised: `containsKey` + `getValue` = two map lookups; single-lookup form is `numMap[secondNum]?.let { ... }`. |
 | 2026-07-19 | 643 | Maximum Average Subarray I | Easy | Sliding Window | 1 | Independent solve, conf 5. First true fixed-size window: build initial k-sum, then slide with subtract-one/add-one delta (`sum -= nums[i-1]; sum += nums[i+k-1]`) — O(1) per step, O(n) total. Tracked max sum, divided once at end with `maxSum/(double)k` (sidestepped the integer-division trap). Correct on the `k == n` edge. |
 | 2026-07-19 | 121 | Best Time to Buy and Sell Stock | Easy | Sliding Window | 1 | Independent solve, conf 5. Single-pass running-minimum: track `minPrice` seen so far, update `maxProfit = max(maxProfit, price - minPrice)` each step. Reframed "best pair" as "best single fact behind me." Correctly diagnosed brute force as O(n²) repeating the min-search. First Sliding Window problem. |
@@ -41,11 +42,11 @@
 
 | # | Title | Last Review | Reps | EF | Interval (d) | Next Review | Fails | Skips |
 |---|-------|-------------|------|------|--------------|-------------|-------|-------|
-| 167 | Two Sum II — Input Array Is Sorted | 2026-07-18 | 1 | 2.60 | 3 | 2026-07-21 | 0 | 0 |
 | 125 | Valid Palindrome | 2026-07-18 | 1 | 2.60 | 3 | 2026-07-21 | 0 | 0 |
 | 121 | Best Time to Buy and Sell Stock | 2026-07-19 | 1 | 2.60 | 3 | 2026-07-22 | 0 | 0 |
 | 643 | Maximum Average Subarray I | 2026-07-19 | 1 | 2.60 | 3 | 2026-07-22 | 0 | 0 |
 | 1 | Two Sum | 2026-08-30 | 1 | 2.60 | 3 | 2026-09-02 | 0 | 0 |
+| 167 | Two Sum II — Input Array Is Sorted | 2026-08-30 | 1 | 2.70 | 3 | 2026-09-02 | 0 | 0 |
 
 ---
 
@@ -119,7 +120,7 @@
 ## Weak Spots Summary
 *(use this to prioritize new problems — fills in as you go)*
 
-_(none yet — start solving and patterns with high Gap will surface here)_
+- **Justifying an elimination, not just performing it** (surfaced 2026-08-30 on #167). Pointer/branch moves are correct, but the stated reason defends the direction chosen rather than proving the discarded candidates are all invalid. Matters the moment loop bounds get non-obvious — Binary Search will punish it. Re-check when Binary Search opens.
 
 ---
 
@@ -140,7 +141,9 @@ _(none yet — start solving and patterns with high Gap will surface here)_
 - #1 Two Sum re-solved independently, conf 5 (was conf 4 in July). The July gap — one-pass not obvious — is now closed; he went straight to one-pass.
 - Aha reinforced: storing what you've already seen turns O(n²) pair-scanning into O(n) — space traded for the second scan.
 - New depth on an old rule: he justified look-before-insert on efficiency (skip the insert on a hit). Nudged him to the correctness argument — insert-first returns `[0,0]` on `[3,3]`, so the ordering is what enforces "can't use the same element twice," not just an optimization.
-- Remaining in sprint: #167, #125, plus #121/#643 now also overdue.
+- #167 Two Sum II re-solved independently, conf 5. Both traps cleared unprompted: 1-indexed return, and `while (left < right)` (not `<=`) so no element pairs with itself.
+- Weak spot surfaced — *justifying* the discard, not performing it. He moved the right pointer correctly but defended it as "moving left would only increase the sum." The load-bearing argument is that `numbers[right]` is dead in every remaining pair, since all surviving candidates are ≥ `numbers[left]`. Eliminating a whole column per comparison is what buys O(n). Same instinct binary search needs — watch whether it transfers when Binary Search opens.
+- Remaining in sprint: #125, plus #121/#643 now also overdue.
 
 ### 2026-07-19 — Session 2
 - Solved #121 Best Time to Buy and Sell Stock independently (conf 5). Opened the Sliding Window pattern.
