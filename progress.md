@@ -10,6 +10,7 @@
 
 | Week | Completed | Target | Status |
 |------|-----------|--------|--------|
+| 2026-08-24 – 2026-08-30 | 0 new (1 review) | 3 | 🔄 warm-up sprint after 42-day gap |
 | 2026-07-13 – 2026-07-19 | 5 | 3 | ✅ target exceeded |
 
 ---
@@ -26,6 +27,7 @@
 
 | Date | # | Title | Difficulty | Category | Attempts | Notes |
 |------|---|-------|------------|----------|----------|-------|
+| 2026-08-30 | 1 | Two Sum | Easy | Arrays & Hashing | 1 | **Review** (not a new solve — Stats/Pattern Targets unchanged). Independent re-solve, conf 5 — up from conf 4 on the original. Kotlin one-pass, `forEachIndexed` with non-local return. Answered all three pre-code questions correctly and went straight to one-pass, closing the July conf-4 gap. Extended the look-before-insert rule from an efficiency argument to a correctness one after a nudge — insert-first returns `[0,0]` on `[3,3]`. Nit raised: `containsKey` + `getValue` = two map lookups; single-lookup form is `numMap[secondNum]?.let { ... }`. |
 | 2026-07-19 | 643 | Maximum Average Subarray I | Easy | Sliding Window | 1 | Independent solve, conf 5. First true fixed-size window: build initial k-sum, then slide with subtract-one/add-one delta (`sum -= nums[i-1]; sum += nums[i+k-1]`) — O(1) per step, O(n) total. Tracked max sum, divided once at end with `maxSum/(double)k` (sidestepped the integer-division trap). Correct on the `k == n` edge. |
 | 2026-07-19 | 121 | Best Time to Buy and Sell Stock | Easy | Sliding Window | 1 | Independent solve, conf 5. Single-pass running-minimum: track `minPrice` seen so far, update `maxProfit = max(maxProfit, price - minPrice)` each step. Reframed "best pair" as "best single fact behind me." Correctly diagnosed brute force as O(n²) repeating the min-search. First Sliding Window problem. |
 | 2026-07-18 | 125 | Valid Palindrome | Easy | Two Pointers | 1 | Independent solve, conf 5. Wrote both variants: O(n)-space pre-clean via StringBuilder filter, then O(1)-space in-place — skip non-alphanumeric chars with move-then-compare + `continue`, `start < end` guard prevents overrun. Clear on the space tradeoff. |
@@ -39,11 +41,11 @@
 
 | # | Title | Last Review | Reps | EF | Interval (d) | Next Review | Fails | Skips |
 |---|-------|-------------|------|------|--------------|-------------|-------|-------|
-| 1 | Two Sum | 2026-07-18 | 1 | 2.50 | 3 | 2026-07-21 | 0 | 0 |
-| 121 | Best Time to Buy and Sell Stock | 2026-07-19 | 1 | 2.60 | 3 | 2026-07-22 | 0 | 0 |
-| 643 | Maximum Average Subarray I | 2026-07-19 | 1 | 2.60 | 3 | 2026-07-22 | 0 | 0 |
 | 167 | Two Sum II — Input Array Is Sorted | 2026-07-18 | 1 | 2.60 | 3 | 2026-07-21 | 0 | 0 |
 | 125 | Valid Palindrome | 2026-07-18 | 1 | 2.60 | 3 | 2026-07-21 | 0 | 0 |
+| 121 | Best Time to Buy and Sell Stock | 2026-07-19 | 1 | 2.60 | 3 | 2026-07-22 | 0 | 0 |
+| 643 | Maximum Average Subarray I | 2026-07-19 | 1 | 2.60 | 3 | 2026-07-22 | 0 | 0 |
+| 1 | Two Sum | 2026-08-30 | 1 | 2.60 | 3 | 2026-09-02 | 0 | 0 |
 
 ---
 
@@ -131,6 +133,14 @@ _(none yet — start solving and patterns with high Gap will surface here)_
 
 ## Session Notes
 <!-- Add notes from each session here -->
+
+### 2026-08-30 — Session 3 (warm-up sprint after 42-day gap)
+- 42 days since the last entry (2026-07-19). Gap ≥ 30 → warm-up sprint of high-confidence reviews before any new pattern.
+- All 5 SR items were ~40 days past due against `Interval 3`. Lateness decay: `ratio = 40/3 + 1 ≈ 14.3` → `floor(log2 14.3) = 3` → pre-grade `Reps = max(0, 1-3) = 0` for #1/#167/#125; `ratio = 39/3 + 1 = 14` → same `Reps = 0` for #121/#643. No skip candidates — decay floored every one.
+- #1 Two Sum re-solved independently, conf 5 (was conf 4 in July). The July gap — one-pass not obvious — is now closed; he went straight to one-pass.
+- Aha reinforced: storing what you've already seen turns O(n²) pair-scanning into O(n) — space traded for the second scan.
+- New depth on an old rule: he justified look-before-insert on efficiency (skip the insert on a hit). Nudged him to the correctness argument — insert-first returns `[0,0]` on `[3,3]`, so the ordering is what enforces "can't use the same element twice," not just an optimization.
+- Remaining in sprint: #167, #125, plus #121/#643 now also overdue.
 
 ### 2026-07-19 — Session 2
 - Solved #121 Best Time to Buy and Sell Stock independently (conf 5). Opened the Sliding Window pattern.
