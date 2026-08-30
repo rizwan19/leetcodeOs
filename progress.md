@@ -10,6 +10,7 @@
 
 | Week | Completed | Target | Status |
 |------|-----------|--------|--------|
+| 2026-08-31 – 2026-09-06 | 0 new (1 review) | 3 | 🔄 warm-up sprint continues |
 | 2026-08-24 – 2026-08-30 | 0 new (2 reviews) | 3 | 🔄 warm-up sprint after 42-day gap |
 | 2026-07-13 – 2026-07-19 | 5 | 3 | ✅ target exceeded |
 
@@ -27,6 +28,7 @@
 
 | Date | # | Title | Difficulty | Category | Attempts | Notes |
 |------|---|-------|------------|----------|----------|-------|
+| 2026-08-31 | 125 | Valid Palindrome | Easy | Two Pointers | 1 | **Review** (not a new solve — Stats/Pattern Targets unchanged). Conf 4, **hints given**. Code came out correct first try and clean: guarded inner skip loops (`left < right` inside both), real `lowercaseChar()` compare, O(1) space. But he couldn't answer any of the three pre-code questions — didn't recall the two variants, guessed the guard was half-length, didn't know the `"0P"` trap — so all three were explained before he coded. Self-graded 4 for exactly that reason. First split between retained *code shape* and lost *reasoning* — worth watching. |
 | 2026-08-30 | 167 | Two Sum II — Input Array Is Sorted | Easy | Two Pointers | 1 | **Review** (not a new solve — Stats/Pattern Targets unchanged). Independent re-solve, conf 5. Kotlin three-way branch on `sum` vs `target`, `while (left < right)`, 1-indexed return. Nailed the sortedness-replaces-the-hashmap point and both traps (1-indexing, strict `<` so no self-pairing). Needed one nudge on the discard proof: he argued *why not move left*, rather than the stronger claim that `numbers[right]` is eliminated from every remaining pair (all remaining candidates are ≥ `numbers[left]`, so all those sums exceed target) — that's what makes it O(n) instead of O(n²). |
 | 2026-08-30 | 1 | Two Sum | Easy | Arrays & Hashing | 1 | **Review** (not a new solve — Stats/Pattern Targets unchanged). Independent re-solve, conf 5 — up from conf 4 on the original. Kotlin one-pass, `forEachIndexed` with non-local return. Answered all three pre-code questions correctly and went straight to one-pass, closing the July conf-4 gap. Extended the look-before-insert rule from an efficiency argument to a correctness one after a nudge — insert-first returns `[0,0]` on `[3,3]`. Nit raised: `containsKey` + `getValue` = two map lookups; single-lookup form is `numMap[secondNum]?.let { ... }`. |
 | 2026-07-19 | 643 | Maximum Average Subarray I | Easy | Sliding Window | 1 | Independent solve, conf 5. First true fixed-size window: build initial k-sum, then slide with subtract-one/add-one delta (`sum -= nums[i-1]; sum += nums[i+k-1]`) — O(1) per step, O(n) total. Tracked max sum, divided once at end with `maxSum/(double)k` (sidestepped the integer-division trap). Correct on the `k == n` edge. |
@@ -42,11 +44,11 @@
 
 | # | Title | Last Review | Reps | EF | Interval (d) | Next Review | Fails | Skips |
 |---|-------|-------------|------|------|--------------|-------------|-------|-------|
-| 125 | Valid Palindrome | 2026-07-18 | 1 | 2.60 | 3 | 2026-07-21 | 0 | 0 |
 | 121 | Best Time to Buy and Sell Stock | 2026-07-19 | 1 | 2.60 | 3 | 2026-07-22 | 0 | 0 |
 | 643 | Maximum Average Subarray I | 2026-07-19 | 1 | 2.60 | 3 | 2026-07-22 | 0 | 0 |
 | 1 | Two Sum | 2026-08-30 | 1 | 2.60 | 3 | 2026-09-02 | 0 | 0 |
 | 167 | Two Sum II — Input Array Is Sorted | 2026-08-30 | 1 | 2.70 | 3 | 2026-09-02 | 0 | 0 |
+| 125 | Valid Palindrome | 2026-08-31 | 1 | 2.60 | 3 | 2026-09-03 | 0 | 0 |
 
 ---
 
@@ -120,6 +122,7 @@
 ## Weak Spots Summary
 *(use this to prioritize new problems — fills in as you go)*
 
+- **Reasoning decays faster than code** (surfaced 2026-08-31 on #125). After 42 days he re-wrote a correct O(1)-space solution first try but could not recall the two variants, the reason for the skip guard, or the `"0P"` case-fold trap. Implication for reviews: lead with the pre-code questions and grade on those, since a clean solve alone overstates retention.
 - **Justifying an elimination, not just performing it** (surfaced 2026-08-30 on #167). Pointer/branch moves are correct, but the stated reason defends the direction chosen rather than proving the discarded candidates are all invalid. Matters the moment loop bounds get non-obvious — Binary Search will punish it. Re-check when Binary Search opens.
 
 ---
@@ -143,7 +146,15 @@
 - New depth on an old rule: he justified look-before-insert on efficiency (skip the insert on a hit). Nudged him to the correctness argument — insert-first returns `[0,0]` on `[3,3]`, so the ordering is what enforces "can't use the same element twice," not just an optimization.
 - #167 Two Sum II re-solved independently, conf 5. Both traps cleared unprompted: 1-indexed return, and `while (left < right)` (not `<=`) so no element pairs with itself.
 - Weak spot surfaced — *justifying* the discard, not performing it. He moved the right pointer correctly but defended it as "moving left would only increase the sum." The load-bearing argument is that `numbers[right]` is dead in every remaining pair, since all surviving candidates are ≥ `numbers[left]`. Eliminating a whole column per comparison is what buys O(n). Same instinct binary search needs — watch whether it transfers when Binary Search opens.
-- Remaining in sprint: #125, plus #121/#643 now also overdue.
+- Remaining in sprint: #121, #643.
+
+### 2026-08-31 — Session 4 (sprint continued past midnight)
+- #125 Valid Palindrome, conf 4 — first non-5 of the sprint, and the most informative result so far. Code was correct first try; the *reasoning* behind it was gone.
+- Couldn't name the two variants (pre-clean O(n) vs. in-place O(1)), guessed the skip guard was half-length, and didn't know the `"0P"` trap. All three explained before he coded.
+- Why half-length fails: skipping is data-dependent, so the pointers meet at the midpoint of the *cleaned* content at unknown original indices — never at `n/2`. Guard belongs inside the skip loops; without it `".,"` walks `left` past the end into a `StringIndexOutOfBoundsException`.
+- `"0P"` trap: `abs(a - b) == 32` as a case-fold. `'0'`=48, `'P'`=80 differ by exactly 32, so the shortcut returns true on a non-palindrome. ±32 is a fact about ASCII's letter range, not a general case-fold; digits have no case. Use `lowercaseChar()`.
+- Noted for him: when a skip loop exits on `left == right`, the code compares that char with itself — always passes, and cheaper than branching around it.
+- **Pattern across the sprint:** muscle memory for code survived 42 days; the derivations did not. #1 and #167 hid this because their reasoning is short enough to re-derive live. Reviews should keep leading with the questions, not the code.
 
 ### 2026-07-19 — Session 2
 - Solved #121 Best Time to Buy and Sell Stock independently (conf 5). Opened the Sliding Window pattern.
