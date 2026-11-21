@@ -10,6 +10,7 @@
 
 | Week | Completed | Target | Status |
 |------|-----------|--------|--------|
+| 2026-11-16 – 2026-11-22 | 0 new (1 review) | 3 | 🔄 warm-up sprint after 82-day gap |
 | 2026-08-31 – 2026-09-06 | 0 new (1 review) | 3 | 🔄 warm-up sprint continues |
 | 2026-08-24 – 2026-08-30 | 0 new (2 reviews) | 3 | 🔄 warm-up sprint after 42-day gap |
 | 2026-07-13 – 2026-07-19 | 5 | 3 | ✅ target exceeded |
@@ -28,6 +29,7 @@
 
 | Date | # | Title | Difficulty | Category | Attempts | Notes |
 |------|---|-------|------------|----------|----------|-------|
+| 2026-11-21 | 121 | Best Time to Buy and Sell Stock | Easy | Sliding Window | 1 | **Review** (not a new solve — Stats/Pattern Targets unchanged). **Fail, conf 2** — could not recall the approach after 125 days; looked at the old submission, then wrote a correct running-min solution (`minPrice = Integer.MAX_VALUE`, update min then `maxProfit = max(maxProfit, price - minPrice)`). Self-graded 3, re-graded to 2 per rubric (needed solution). Pre-code answers partial: named the brute force but not O(n²) or the redundant re-scan; said `minPrice` starts at 7 while code uses `MAX_VALUE`; didn't state why the result can't go negative. |
 | 2026-08-31 | 125 | Valid Palindrome | Easy | Two Pointers | 1 | **Review** (not a new solve — Stats/Pattern Targets unchanged). Conf 4, **hints given**. Code came out correct first try and clean: guarded inner skip loops (`left < right` inside both), real `lowercaseChar()` compare, O(1) space. But he couldn't answer any of the three pre-code questions — didn't recall the two variants, guessed the guard was half-length, didn't know the `"0P"` trap — so all three were explained before he coded. Self-graded 4 for exactly that reason. First split between retained *code shape* and lost *reasoning* — worth watching. |
 | 2026-08-30 | 167 | Two Sum II — Input Array Is Sorted | Easy | Two Pointers | 1 | **Review** (not a new solve — Stats/Pattern Targets unchanged). Independent re-solve, conf 5. Kotlin three-way branch on `sum` vs `target`, `while (left < right)`, 1-indexed return. Nailed the sortedness-replaces-the-hashmap point and both traps (1-indexing, strict `<` so no self-pairing). Needed one nudge on the discard proof: he argued *why not move left*, rather than the stronger claim that `numbers[right]` is eliminated from every remaining pair (all remaining candidates are ≥ `numbers[left]`, so all those sums exceed target) — that's what makes it O(n) instead of O(n²). |
 | 2026-08-30 | 1 | Two Sum | Easy | Arrays & Hashing | 1 | **Review** (not a new solve — Stats/Pattern Targets unchanged). Independent re-solve, conf 5 — up from conf 4 on the original. Kotlin one-pass, `forEachIndexed` with non-local return. Answered all three pre-code questions correctly and went straight to one-pass, closing the July conf-4 gap. Extended the look-before-insert rule from an efficiency argument to a correctness one after a nudge — insert-first returns `[0,0]` on `[3,3]`. Nit raised: `containsKey` + `getValue` = two map lookups; single-lookup form is `numMap[secondNum]?.let { ... }`. |
@@ -44,11 +46,11 @@
 
 | # | Title | Last Review | Reps | EF | Interval (d) | Next Review | Fails | Skips |
 |---|-------|-------------|------|------|--------------|-------------|-------|-------|
-| 121 | Best Time to Buy and Sell Stock | 2026-07-19 | 1 | 2.60 | 3 | 2026-07-22 | 0 | 0 |
 | 643 | Maximum Average Subarray I | 2026-07-19 | 1 | 2.60 | 3 | 2026-07-22 | 0 | 0 |
 | 1 | Two Sum | 2026-08-30 | 1 | 2.60 | 3 | 2026-09-02 | 0 | 0 |
 | 167 | Two Sum II — Input Array Is Sorted | 2026-08-30 | 1 | 2.70 | 3 | 2026-09-02 | 0 | 0 |
 | 125 | Valid Palindrome | 2026-08-31 | 1 | 2.60 | 3 | 2026-09-03 | 0 | 0 |
+| 121 | Best Time to Buy and Sell Stock | 2026-11-21 | 0 | 2.28 | 1 | 2026-11-22 | 1 | 0 |
 
 ---
 
@@ -122,7 +124,7 @@
 ## Weak Spots Summary
 *(use this to prioritize new problems — fills in as you go)*
 
-- **Reasoning decays faster than code** (surfaced 2026-08-31 on #125). After 42 days he re-wrote a correct O(1)-space solution first try but could not recall the two variants, the reason for the skip guard, or the `"0P"` case-fold trap. Implication for reviews: lead with the pre-code questions and grade on those, since a clean solve alone overstates retention.
+- **Reasoning decays faster than code** (surfaced 2026-08-31 on #125). After 42 days he re-wrote a correct O(1)-space solution first try but could not recall the two variants, the reason for the skip guard, or the `"0P"` case-fold trap. Implication for reviews: lead with the pre-code questions and grade on those, since a clean solve alone overstates retention. **Escalated 2026-11-21:** at 125 days #121's approach itself was gone (fail, needed old submission). Long gaps are the root problem — steady cadence matters more than any single review.
 - **Justifying an elimination, not just performing it** (surfaced 2026-08-30 on #167). Pointer/branch moves are correct, but the stated reason defends the direction chosen rather than proving the discarded candidates are all invalid. Matters the moment loop bounds get non-obvious — Binary Search will punish it. Re-check when Binary Search opens.
 
 ---
@@ -155,6 +157,13 @@
 - `"0P"` trap: `abs(a - b) == 32` as a case-fold. `'0'`=48, `'P'`=80 differ by exactly 32, so the shortcut returns true on a non-palindrome. ±32 is a fact about ASCII's letter range, not a general case-fold; digits have no case. Use `lowercaseChar()`.
 - Noted for him: when a skip loop exits on `left == right`, the code compares that char with itself — always passes, and cheaper than branching around it.
 - **Pattern across the sprint:** muscle memory for code survived 42 days; the derivations did not. #1 and #167 hid this because their reasoning is short enough to re-derive live. Reviews should keep leading with the questions, not the code.
+
+### 2026-11-21 — Session 5 (warm-up sprint after 82-day gap)
+- 82 days since the last entry (2026-08-31). Gap ≥ 30 → warm-up sprint. Lateness decay floored every SR item to `Reps = 0` (ratios ≈27–42); all > 60 days since review, so no skip candidates.
+- Sprint order: #121, #643 (unfinished from last sprint, 125 days since solve), then #125 (conf 4 last time on reasoning).
+- #121 Best Time to Buy and Sell Stock — **first fail**. Couldn't recall the approach; looked at the old submission. Self-graded 3, re-graded to 2 per rubric. `Fails = 1`, `EF 2.60 → 2.28`, back tomorrow (2026-11-22).
+- Decay escalated: at 42 days the code survived and reasoning faded (#125); at 125 days the approach itself was gone. Short, aha-dependent problems are the most fragile — the one insight *is* the solution.
+- Gaps in pre-code answers worth re-drilling tomorrow: brute force is O(n²) because each buy day re-scans the future; running min makes that scan redundant. Non-negative result is guaranteed by `maxProfit = 0` init + `max`, and min-before-profit ordering makes every candidate ≥ 0.
 
 ### 2026-07-19 — Session 2
 - Solved #121 Best Time to Buy and Sell Stock independently (conf 5). Opened the Sliding Window pattern.
