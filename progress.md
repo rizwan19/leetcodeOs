@@ -10,7 +10,7 @@
 
 | Week | Completed | Target | Status |
 |------|-----------|--------|--------|
-| 2026-11-16 – 2026-11-22 | 0 new (2 reviews) | 3 | 🔄 warm-up sprint after 82-day gap |
+| 2026-11-16 – 2026-11-22 | 0 new (3 reviews) | 3 | 🔄 warm-up sprint after 82-day gap |
 | 2026-08-31 – 2026-09-06 | 0 new (1 review) | 3 | 🔄 warm-up sprint continues |
 | 2026-08-24 – 2026-08-30 | 0 new (2 reviews) | 3 | 🔄 warm-up sprint after 42-day gap |
 | 2026-07-13 – 2026-07-19 | 5 | 3 | ✅ target exceeded |
@@ -29,6 +29,7 @@
 
 | Date | # | Title | Difficulty | Category | Attempts | Notes |
 |------|---|-------|------------|----------|----------|-------|
+| 2026-11-21 | 125 | Valid Palindrome | Easy | Two Pointers | 2 | **Review** (not a new solve — Stats/Pattern Targets unchanged). **Fail, conf 2** — self-graded 4, re-graded to 2 per rubric (hints needed). Code correct and independent: in-place O(1), `Character.toLowerCase` compare, left skip loop guarded by increment-then-`if (left > right) return true`, right loop unguarded but safe. Pre-code: named both variants but called pre-clean O(1) (it's O(n)); Q2 (guard placement / `".,"` crash) and Q3 (`"0P"` trap) blank for the **second review running** — Q2 needed the answer, Q3 a nudge. First version missed `".,"`. Explained the unguarded right loop as "no non-alphanumerics remain" — actual invariant is `s[left]` is alphanumeric and `left ≤ right`, so it acts as a sentinel. |
 | 2026-11-21 | 643 | Maximum Average Subarray I | Easy | Sliding Window | 1 | **Review** (not a new solve — Stats/Pattern Targets unchanged). Independent re-solve, conf 5, no peeking. All three pre-code answers correct: O(n·k) brute force vs. O(1) delta per slide, track max sum not average (constant `k` preserves order), cast before dividing. Seeded `maxSum` with the first window's sum (not 0), so all-negative input is correct. Correct on `k == n`. Style nit: `for (i = k; i < n; i++) sum += nums[i] - nums[i-k]` indexes by the incoming element. |
 | 2026-11-21 | 121 | Best Time to Buy and Sell Stock | Easy | Sliding Window | 1 | **Review** (not a new solve — Stats/Pattern Targets unchanged). **Fail, conf 2** — could not recall the approach after 125 days; looked at the old submission, then wrote a correct running-min solution (`minPrice = Integer.MAX_VALUE`, update min then `maxProfit = max(maxProfit, price - minPrice)`). Self-graded 3, re-graded to 2 per rubric (needed solution). Pre-code answers partial: named the brute force but not O(n²) or the redundant re-scan; said `minPrice` starts at 7 while code uses `MAX_VALUE`; didn't state why the result can't go negative. |
 | 2026-08-31 | 125 | Valid Palindrome | Easy | Two Pointers | 1 | **Review** (not a new solve — Stats/Pattern Targets unchanged). Conf 4, **hints given**. Code came out correct first try and clean: guarded inner skip loops (`left < right` inside both), real `lowercaseChar()` compare, O(1) space. But he couldn't answer any of the three pre-code questions — didn't recall the two variants, guessed the guard was half-length, didn't know the `"0P"` trap — so all three were explained before he coded. Self-graded 4 for exactly that reason. First split between retained *code shape* and lost *reasoning* — worth watching. |
@@ -49,8 +50,8 @@
 |---|-------|-------------|------|------|--------------|-------------|-------|-------|
 | 1 | Two Sum | 2026-08-30 | 1 | 2.60 | 3 | 2026-09-02 | 0 | 0 |
 | 167 | Two Sum II — Input Array Is Sorted | 2026-08-30 | 1 | 2.70 | 3 | 2026-09-02 | 0 | 0 |
-| 125 | Valid Palindrome | 2026-08-31 | 1 | 2.60 | 3 | 2026-09-03 | 0 | 0 |
 | 121 | Best Time to Buy and Sell Stock | 2026-11-21 | 0 | 2.28 | 1 | 2026-11-22 | 1 | 0 |
+| 125 | Valid Palindrome | 2026-11-21 | 0 | 2.28 | 1 | 2026-11-22 | 1 | 0 |
 | 643 | Maximum Average Subarray I | 2026-11-21 | 1 | 2.70 | 3 | 2026-11-24 | 0 | 0 |
 
 ---
@@ -125,7 +126,7 @@
 ## Weak Spots Summary
 *(use this to prioritize new problems — fills in as you go)*
 
-- **Reasoning decays faster than code** (surfaced 2026-08-31 on #125). After 42 days he re-wrote a correct O(1)-space solution first try but could not recall the two variants, the reason for the skip guard, or the `"0P"` case-fold trap. Implication for reviews: lead with the pre-code questions and grade on those, since a clean solve alone overstates retention. **Escalated 2026-11-21:** at 125 days #121's approach itself was gone (fail, needed old submission). Long gaps are the root problem — steady cadence matters more than any single review.
+- **Reasoning decays faster than code** (surfaced 2026-08-31 on #125). After 42 days he re-wrote a correct O(1)-space solution first try but could not recall the two variants, the reason for the skip guard, or the `"0P"` case-fold trap. Implication for reviews: lead with the pre-code questions and grade on those, since a clean solve alone overstates retention. **Confirmed 2026-11-21:** #125's guard and `"0P"` questions went blank on two reviews in a row; #121's approach itself was gone. **Escalated:** at 125 days #121's approach itself was gone (fail, needed old submission). Long gaps are the root problem — steady cadence matters more than any single review.
 - **Justifying an elimination, not just performing it** (surfaced 2026-08-30 on #167). Pointer/branch moves are correct, but the stated reason defends the direction chosen rather than proving the discarded candidates are all invalid. Matters the moment loop bounds get non-obvious — Binary Search will punish it. Re-check when Binary Search opens.
 
 ---
@@ -166,6 +167,11 @@
 - Decay escalated: at 42 days the code survived and reasoning faded (#125); at 125 days the approach itself was gone. Short, aha-dependent problems are the most fragile — the one insight *is* the solution.
 - Gaps in pre-code answers worth re-drilling tomorrow: brute force is O(n²) because each buy day re-scans the future; running min makes that scan redundant. Non-negative result is guaranteed by `maxProfit = 0` init + `max`, and min-before-profit ordering makes every candidate ≥ 0.
 - #643 Maximum Average Subarray I — independent re-solve, conf 5, all pre-code questions answered without looking. Contrast with #121 on the same day/gap: #643's solution is mechanical (build window, slide delta) and survives; #121 hinges on a single reframe ("best fact behind me") and didn't. Reframe-style insights need more frequent review than mechanical ones.
+- #125 Valid Palindrome — **fail, conf 2** (self-graded 4, re-graded per rubric). Code independent and correct; reasoning blank on the same two questions as August. Confirms the August conf 4 was too generous — hints-then-high-grade let the gap slip through.
+- Key lesson filed: **a loop that moves a pointer must check the bound in its own condition** — the outer `while (left < right)` is only re-checked between iterations. Without it, `".,"` → `StringIndexOutOfBoundsException`, not a clean exit.
+- Sentinel invariant: after the left skip loop, `s[left]` is alphanumeric and `left ≤ right`, so the right loop always stops at `left` at worst. Their first explanation ("no non-alphanumerics remain") was imprecise — same theme as #167: name exactly what makes a move safe.
+- `"0P"`: ±32 is only a case relationship between letters (`'0'`=48, `'P'`=80). Use `Character.toLowerCase` rather than char arithmetic.
+- Grading calibration: when pre-code questions need hints, grade 2 regardless of how clean the code is. Applied to both fails today.
 
 ### 2026-07-19 — Session 2
 - Solved #121 Best Time to Buy and Sell Stock independently (conf 5). Opened the Sliding Window pattern.
