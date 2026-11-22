@@ -10,7 +10,7 @@
 
 | Week | Completed | Target | Status |
 |------|-----------|--------|--------|
-| 2026-11-16 – 2026-11-22 | 0 new (5 reviews) | 3 | 🔄 warm-up sprint after 82-day gap |
+| 2026-11-16 – 2026-11-22 | 0 new (6 reviews) | 3 | 🔄 warm-up sprint after 82-day gap |
 | 2026-08-31 – 2026-09-06 | 0 new (1 review) | 3 | 🔄 warm-up sprint continues |
 | 2026-08-24 – 2026-08-30 | 0 new (2 reviews) | 3 | 🔄 warm-up sprint after 42-day gap |
 | 2026-07-13 – 2026-07-19 | 5 | 3 | ✅ target exceeded |
@@ -29,6 +29,7 @@
 
 | Date | # | Title | Difficulty | Category | Attempts | Notes |
 |------|---|-------|------------|----------|----------|-------|
+| 2026-11-22 | 1 | Two Sum | Easy | Arrays & Hashing | 1 | **Review** (not a new solve — Stats/Pattern Targets unchanged). 84 days since last review, conf 3 (self-graded — couldn't produce the check-before-insert correctness reason). Java one-pass: complement check, then `put`. Q1 brute force O(n²) correct but omitted the O(n) space trade until asked. Q2 order right, reason missing — after a `[3,3]` trace, stated insert-first finds itself (`[0,0]`). Same nudge needed in August. Q3 clean (key = number for O(1) lookup by value, value = index to return). Nit repeated in Java: `containsKey` + `get` = two lookups; single `get` + null check. |
 | 2026-11-22 | 125 | Valid Palindrome | Easy | Two Pointers | 1 | **Review** (not a new solve — Stats/Pattern Targets unchanged). Next-day retry after yesterday's fail. **Pass, conf 4** — self-graded 5, settled on 4 after discussion (one nudge). Q1 clean (pre-clean O(n), in-place O(1) — yesterday's slip fixed). Q3 clean (`'0'`=48 vs `'P'`=80, use `Character.toLowerCase`). Q2 ambiguous ("bound check after the skip") — traced the after-loop version on `".,"` and identified the `StringIndexOutOfBoundsException` himself. Code identical to yesterday, guard inside the left loop body. Sentinel answer close: said "leftmost char is alphanumeric" — refined to `s[left]` alphanumeric **and** `left ≤ right`. |
 | 2026-11-22 | 121 | Best Time to Buy and Sell Stock | Easy | Sliding Window | 1 | **Review** (not a new solve — Stats/Pattern Targets unchanged). Next-day retry after yesterday's fail. Independent re-solve, conf 5, no peeking. Pre-code: named the redundant re-scan and the running-min reframe; explained non-negativity via min-update-before-profit ordering. Missed brute-force complexity (answered O(n) for the optimized one; brute force is O(n²)). On the swapped-lines follow-up credited `Math.max` alone — also needs `maxProfit = 0` init. Code identical in shape to July: `minPrice = MAX_VALUE`, update min, then `max(maxProfit, price - minPrice)`. |
 | 2026-11-21 | 125 | Valid Palindrome | Easy | Two Pointers | 2 | **Review** (not a new solve — Stats/Pattern Targets unchanged). **Fail, conf 2** — self-graded 4, re-graded to 2 per rubric (hints needed). Code correct and independent: in-place O(1), `Character.toLowerCase` compare, left skip loop guarded by increment-then-`if (left > right) return true`, right loop unguarded but safe. Pre-code: named both variants but called pre-clean O(1) (it's O(n)); Q2 (guard placement / `".,"` crash) and Q3 (`"0P"` trap) blank for the **second review running** — Q2 needed the answer, Q3 a nudge. First version missed `".,"`. Explained the unguarded right loop as "no non-alphanumerics remain" — actual invariant is `s[left]` is alphanumeric and `left ≤ right`, so it acts as a sentinel. |
@@ -50,11 +51,11 @@
 
 | # | Title | Last Review | Reps | EF | Interval (d) | Next Review | Fails | Skips |
 |---|-------|-------------|------|------|--------------|-------------|-------|-------|
-| 1 | Two Sum | 2026-08-30 | 1 | 2.60 | 3 | 2026-09-02 | 0 | 0 |
 | 167 | Two Sum II — Input Array Is Sorted | 2026-08-30 | 1 | 2.70 | 3 | 2026-09-02 | 0 | 0 |
 | 643 | Maximum Average Subarray I | 2026-11-21 | 1 | 2.70 | 3 | 2026-11-24 | 0 | 0 |
 | 121 | Best Time to Buy and Sell Stock | 2026-11-22 | 1 | 2.38 | 3 | 2026-11-25 | 0 | 0 |
 | 125 | Valid Palindrome | 2026-11-22 | 1 | 2.28 | 3 | 2026-11-25 | 0 | 0 |
+| 1 | Two Sum | 2026-11-22 | 1 | 2.46 | 3 | 2026-11-25 | 0 | 0 |
 
 ---
 
@@ -129,7 +130,7 @@
 *(use this to prioritize new problems — fills in as you go)*
 
 - **Reasoning decays faster than code** (surfaced 2026-08-31 on #125). After 42 days he re-wrote a correct O(1)-space solution first try but could not recall the two variants, the reason for the skip guard, or the `"0P"` case-fold trap. Implication for reviews: lead with the pre-code questions and grade on those, since a clean solve alone overstates retention. **Confirmed 2026-11-21:** #125's guard and `"0P"` questions went blank on two reviews in a row; #121's approach itself was gone. **Escalated:** at 125 days #121's approach itself was gone (fail, needed old submission). Long gaps are the root problem — steady cadence matters more than any single review. **Recovering 2026-11-22:** next-day retries of #121 and #125 both passed with pre-code reasoning largely intact — short-interval re-drill after a fail works.
-- **Justifying an elimination, not just performing it** (surfaced 2026-08-30 on #167). Pointer/branch moves are correct, but the stated reason defends the direction chosen rather than proving the discarded candidates are all invalid. Matters the moment loop bounds get non-obvious — Binary Search will punish it. Re-check when Binary Search opens.
+- **Justifying an elimination, not just performing it** (surfaced 2026-08-30 on #167). Pointer/branch moves are correct, but the stated reason defends the direction chosen rather than proving the discarded candidates are all invalid. Matters the moment loop bounds get non-obvious — Binary Search will punish it. Re-check when Binary Search opens. **Recurred 2026-11-22 on #1:** check-before-insert ordering performed correctly but the correctness reason (no self-pairing on `[3,3]`) needed a trace — same nudge as August.
 
 ---
 
@@ -171,6 +172,8 @@
 - Sentinel invariant now nearly precise ("leftmost char is alphanumeric") vs. yesterday's "no non-alphanumerics remain". Missing piece: `left ≤ right`, guaranteed by the early return.
 - Grading calibration held: self-graded 5, agreed on 4 (one nudge, not answer-given → pass, not fail). EF stays 2.28.
 - SM-2: Reps 0→1, EF 2.28 (unchanged at grade 4), Interval 3 → next 2026-11-25.
+- #1 Two Sum — **pass, conf 3** (self-graded). 81 days past due: decay ratio = 81/3 + 1 = 28 → Reps 1→0. Code clean; check-before-insert performed but the correctness reason (insert-first returns `[0,0]` on `[3,3]`) needed a trace — **second time** this exact nudge was needed (also 2026-08-30). Filed under the "justify, not perform" weak spot.
+- SM-2: Reps 0→1, EF 2.60→2.46, Interval 3 → next 2026-11-25.
 
 ### 2026-11-21 — Session 5 (warm-up sprint after 82-day gap)
 - 82 days since the last entry (2026-08-31). Gap ≥ 30 → warm-up sprint. Lateness decay floored every SR item to `Reps = 0` (ratios ≈27–42); all > 60 days since review, so no skip candidates.
