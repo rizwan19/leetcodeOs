@@ -10,7 +10,7 @@
 
 | Week | Completed | Target | Status |
 |------|-----------|--------|--------|
-| 2026-11-16 – 2026-11-22 | 0 new (6 reviews) | 3 | 🔄 warm-up sprint after 82-day gap |
+| 2026-11-16 – 2026-11-22 | 0 new (7 reviews) | 3 | 🔄 warm-up sprint after 82-day gap |
 | 2026-08-31 – 2026-09-06 | 0 new (1 review) | 3 | 🔄 warm-up sprint continues |
 | 2026-08-24 – 2026-08-30 | 0 new (2 reviews) | 3 | 🔄 warm-up sprint after 42-day gap |
 | 2026-07-13 – 2026-07-19 | 5 | 3 | ✅ target exceeded |
@@ -29,6 +29,7 @@
 
 | Date | # | Title | Difficulty | Category | Attempts | Notes |
 |------|---|-------|------------|----------|----------|-------|
+| 2026-11-22 | 167 | Two Sum II — Input Array Is Sorted | Easy | Two Pointers | 1 | **Review** (not a new solve — Stats/Pattern Targets unchanged). **Fail, conf 2** (self-graded 2 on recommendation) after 84 days. Reached for per-element binary search (O(n log n), O(1)) first; didn't cite the O(1)-space constraint as why the hashmap is out. Needed the converge-from-both-ends hint for the O(n) approach. Q2 discard proof given after two partial attempts ("left already moved forward"). Q3 picked `<` but reasoned from the one-solution guarantee rather than "`left == right` = same element twice". Code after the hint correct and clean: three-way branch, `left < right`, 1-indexed return. |
 | 2026-11-22 | 1 | Two Sum | Easy | Arrays & Hashing | 1 | **Review** (not a new solve — Stats/Pattern Targets unchanged). 84 days since last review, conf 3 (self-graded — couldn't produce the check-before-insert correctness reason). Java one-pass: complement check, then `put`. Q1 brute force O(n²) correct but omitted the O(n) space trade until asked. Q2 order right, reason missing — after a `[3,3]` trace, stated insert-first finds itself (`[0,0]`). Same nudge needed in August. Q3 clean (key = number for O(1) lookup by value, value = index to return). Nit repeated in Java: `containsKey` + `get` = two lookups; single `get` + null check. |
 | 2026-11-22 | 125 | Valid Palindrome | Easy | Two Pointers | 1 | **Review** (not a new solve — Stats/Pattern Targets unchanged). Next-day retry after yesterday's fail. **Pass, conf 4** — self-graded 5, settled on 4 after discussion (one nudge). Q1 clean (pre-clean O(n), in-place O(1) — yesterday's slip fixed). Q3 clean (`'0'`=48 vs `'P'`=80, use `Character.toLowerCase`). Q2 ambiguous ("bound check after the skip") — traced the after-loop version on `".,"` and identified the `StringIndexOutOfBoundsException` himself. Code identical to yesterday, guard inside the left loop body. Sentinel answer close: said "leftmost char is alphanumeric" — refined to `s[left]` alphanumeric **and** `left ≤ right`. |
 | 2026-11-22 | 121 | Best Time to Buy and Sell Stock | Easy | Sliding Window | 1 | **Review** (not a new solve — Stats/Pattern Targets unchanged). Next-day retry after yesterday's fail. Independent re-solve, conf 5, no peeking. Pre-code: named the redundant re-scan and the running-min reframe; explained non-negativity via min-update-before-profit ordering. Missed brute-force complexity (answered O(n) for the optimized one; brute force is O(n²)). On the swapped-lines follow-up credited `Math.max` alone — also needs `maxProfit = 0` init. Code identical in shape to July: `minPrice = MAX_VALUE`, update min, then `max(maxProfit, price - minPrice)`. |
@@ -51,8 +52,8 @@
 
 | # | Title | Last Review | Reps | EF | Interval (d) | Next Review | Fails | Skips |
 |---|-------|-------------|------|------|--------------|-------------|-------|-------|
-| 167 | Two Sum II — Input Array Is Sorted | 2026-08-30 | 1 | 2.70 | 3 | 2026-09-02 | 0 | 0 |
 | 643 | Maximum Average Subarray I | 2026-11-21 | 1 | 2.70 | 3 | 2026-11-24 | 0 | 0 |
+| 167 | Two Sum II — Input Array Is Sorted | 2026-11-22 | 0 | 2.38 | 1 | 2026-11-23 | 1 | 0 |
 | 121 | Best Time to Buy and Sell Stock | 2026-11-22 | 1 | 2.38 | 3 | 2026-11-25 | 0 | 0 |
 | 125 | Valid Palindrome | 2026-11-22 | 1 | 2.28 | 3 | 2026-11-25 | 0 | 0 |
 | 1 | Two Sum | 2026-11-22 | 1 | 2.46 | 3 | 2026-11-25 | 0 | 0 |
@@ -174,6 +175,11 @@
 - SM-2: Reps 0→1, EF 2.28 (unchanged at grade 4), Interval 3 → next 2026-11-25.
 - #1 Two Sum — **pass, conf 3** (self-graded). 81 days past due: decay ratio = 81/3 + 1 = 28 → Reps 1→0. Code clean; check-before-insert performed but the correctness reason (insert-first returns `[0,0]` on `[3,3]`) needed a trace — **second time** this exact nudge was needed (also 2026-08-30). Filed under the "justify, not perform" weak spot.
 - SM-2: Reps 0→1, EF 2.60→2.46, Interval 3 → next 2026-11-25.
+- #167 Two Sum II — **fail, conf 2**. 84 days since review (decay → Reps 0). Reached for binary search on the complement — valid but O(n log n); the two-pointer converge needed a hint. Q2/Q3 answers were framed for binary search ("middle value", `<=`) until redirected.
+- Discard proof, complete form given: remaining partners of `right` are `numbers[k]`, `k ≥ left` → `numbers[k] ≥ numbers[left]` → every such sum ≥ current sum > target. **Third session** this argument needed supplying (2026-08-30, today). Binary Search will lean on the same proof shape.
+- Contrast with #1 same day: #1's approach survived 84 days, #167's didn't. #167 is the reframe-style problem (sortedness ⇒ eliminate a whole column) — same fragility as #121 yesterday.
+- SM-2: Fails 1, Reps 0, EF 2.70→2.38, Interval 1 → retry 2026-11-23.
+- Week closes 0 new / 7 reviews. Sprint has cleared every overdue item; new-problem work can resume next session.
 
 ### 2026-11-21 — Session 5 (warm-up sprint after 82-day gap)
 - 82 days since the last entry (2026-08-31). Gap ≥ 30 → warm-up sprint. Lateness decay floored every SR item to `Reps = 0` (ratios ≈27–42); all > 60 days since review, so no skip candidates.
