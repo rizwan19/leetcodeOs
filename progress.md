@@ -10,7 +10,7 @@
 
 | Week | Completed | Target | Status |
 |------|-----------|--------|--------|
-| 2026-11-16 – 2026-11-22 | 0 new (3 reviews) | 3 | 🔄 warm-up sprint after 82-day gap |
+| 2026-11-16 – 2026-11-22 | 0 new (4 reviews) | 3 | 🔄 warm-up sprint after 82-day gap |
 | 2026-08-31 – 2026-09-06 | 0 new (1 review) | 3 | 🔄 warm-up sprint continues |
 | 2026-08-24 – 2026-08-30 | 0 new (2 reviews) | 3 | 🔄 warm-up sprint after 42-day gap |
 | 2026-07-13 – 2026-07-19 | 5 | 3 | ✅ target exceeded |
@@ -29,6 +29,7 @@
 
 | Date | # | Title | Difficulty | Category | Attempts | Notes |
 |------|---|-------|------------|----------|----------|-------|
+| 2026-11-22 | 121 | Best Time to Buy and Sell Stock | Easy | Sliding Window | 1 | **Review** (not a new solve — Stats/Pattern Targets unchanged). Next-day retry after yesterday's fail. Independent re-solve, conf 5, no peeking. Pre-code: named the redundant re-scan and the running-min reframe; explained non-negativity via min-update-before-profit ordering. Missed brute-force complexity (answered O(n) for the optimized one; brute force is O(n²)). On the swapped-lines follow-up credited `Math.max` alone — also needs `maxProfit = 0` init. Code identical in shape to July: `minPrice = MAX_VALUE`, update min, then `max(maxProfit, price - minPrice)`. |
 | 2026-11-21 | 125 | Valid Palindrome | Easy | Two Pointers | 2 | **Review** (not a new solve — Stats/Pattern Targets unchanged). **Fail, conf 2** — self-graded 4, re-graded to 2 per rubric (hints needed). Code correct and independent: in-place O(1), `Character.toLowerCase` compare, left skip loop guarded by increment-then-`if (left > right) return true`, right loop unguarded but safe. Pre-code: named both variants but called pre-clean O(1) (it's O(n)); Q2 (guard placement / `".,"` crash) and Q3 (`"0P"` trap) blank for the **second review running** — Q2 needed the answer, Q3 a nudge. First version missed `".,"`. Explained the unguarded right loop as "no non-alphanumerics remain" — actual invariant is `s[left]` is alphanumeric and `left ≤ right`, so it acts as a sentinel. |
 | 2026-11-21 | 643 | Maximum Average Subarray I | Easy | Sliding Window | 1 | **Review** (not a new solve — Stats/Pattern Targets unchanged). Independent re-solve, conf 5, no peeking. All three pre-code answers correct: O(n·k) brute force vs. O(1) delta per slide, track max sum not average (constant `k` preserves order), cast before dividing. Seeded `maxSum` with the first window's sum (not 0), so all-negative input is correct. Correct on `k == n`. Style nit: `for (i = k; i < n; i++) sum += nums[i] - nums[i-k]` indexes by the incoming element. |
 | 2026-11-21 | 121 | Best Time to Buy and Sell Stock | Easy | Sliding Window | 1 | **Review** (not a new solve — Stats/Pattern Targets unchanged). **Fail, conf 2** — could not recall the approach after 125 days; looked at the old submission, then wrote a correct running-min solution (`minPrice = Integer.MAX_VALUE`, update min then `maxProfit = max(maxProfit, price - minPrice)`). Self-graded 3, re-graded to 2 per rubric (needed solution). Pre-code answers partial: named the brute force but not O(n²) or the redundant re-scan; said `minPrice` starts at 7 while code uses `MAX_VALUE`; didn't state why the result can't go negative. |
@@ -50,9 +51,9 @@
 |---|-------|-------------|------|------|--------------|-------------|-------|-------|
 | 1 | Two Sum | 2026-08-30 | 1 | 2.60 | 3 | 2026-09-02 | 0 | 0 |
 | 167 | Two Sum II — Input Array Is Sorted | 2026-08-30 | 1 | 2.70 | 3 | 2026-09-02 | 0 | 0 |
-| 121 | Best Time to Buy and Sell Stock | 2026-11-21 | 0 | 2.28 | 1 | 2026-11-22 | 1 | 0 |
 | 125 | Valid Palindrome | 2026-11-21 | 0 | 2.28 | 1 | 2026-11-22 | 1 | 0 |
 | 643 | Maximum Average Subarray I | 2026-11-21 | 1 | 2.70 | 3 | 2026-11-24 | 0 | 0 |
+| 121 | Best Time to Buy and Sell Stock | 2026-11-22 | 1 | 2.38 | 3 | 2026-11-25 | 0 | 0 |
 
 ---
 
@@ -159,6 +160,12 @@
 - `"0P"` trap: `abs(a - b) == 32` as a case-fold. `'0'`=48, `'P'`=80 differ by exactly 32, so the shortcut returns true on a non-palindrome. ±32 is a fact about ASCII's letter range, not a general case-fold; digits have no case. Use `lowercaseChar()`.
 - Noted for him: when a skip loop exits on `left == right`, the code compares that char with itself — always passes, and cheaper than branching around it.
 - **Pattern across the sprint:** muscle memory for code survived 42 days; the derivations did not. #1 and #167 hid this because their reasoning is short enough to re-derive live. Reviews should keep leading with the questions, not the code.
+
+### 2026-11-22 — Session 6
+- 1 day since last entry → normal session; warm-up sprint continues. Due: #121, #125 (next-day retries after fails), #1, #167 (81 days overdue; decay ratio ≈ 28 → Reps 1→0).
+- #121 Best Time to Buy and Sell Stock — **pass, conf 5**, one day after failing it. Running-min reframe recalled unprompted; non-negativity argued from line ordering (`minPrice ≤ price` after the update).
+- Gaps: gave the optimized complexity when asked for brute force (O(n²)). Non-negativity under swapped lines rests on two pieces together — `maxProfit = 0` init *and* `Math.max`; credited only the latter. Same theme as #167/#125: name every piece that makes the guarantee hold.
+- SM-2: on time (no decay), Reps 0→1, EF 2.28→2.38, Interval 3 → next 2026-11-25.
 
 ### 2026-11-21 — Session 5 (warm-up sprint after 82-day gap)
 - 82 days since the last entry (2026-08-31). Gap ≥ 30 → warm-up sprint. Lateness decay floored every SR item to `Reps = 0` (ratios ≈27–42); all > 60 days since review, so no skip candidates.
