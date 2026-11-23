@@ -10,7 +10,7 @@
 
 | Week | Completed | Target | Status |
 |------|-----------|--------|--------|
-| 2026-11-23 – 2026-11-29 | 0 new (1 review) | 3 | 🔄 in progress |
+| 2026-11-23 – 2026-11-29 | 1 new (1 review) | 3 | 🔄 in progress |
 | 2026-11-16 – 2026-11-22 | 0 new (7 reviews) | 3 | 🔄 warm-up sprint after 82-day gap |
 | 2026-08-31 – 2026-09-06 | 0 new (1 review) | 3 | 🔄 warm-up sprint continues |
 | 2026-08-24 – 2026-08-30 | 0 new (2 reviews) | 3 | 🔄 warm-up sprint after 42-day gap |
@@ -19,8 +19,8 @@
 ---
 
 ## Stats
-- Total solved: 5
-- Easy: 5 | Medium: 0 | Hard: 0
+- Total solved: 6
+- Easy: 6 | Medium: 0 | Hard: 0
 - Tracker active since: 2026-07-18
 
 ---
@@ -30,6 +30,7 @@
 
 | Date | # | Title | Difficulty | Category | Attempts | Notes |
 |------|---|-------|------------|----------|----------|-------|
+| 2026-11-23 | 242 | Valid Anagram | Easy | Arrays & Hashing | 2 | First new problem since July. Conf 5 (self-graded). Pre-code: Q1 clean (same length + same per-char counts); Q2 right on sort = O(n log n) and counting instead, but muddled it with "time O(n) too"; Q3 clean (`int[26]`, O(1) space since size is fixed). Solved independently with two frequency arrays, single loop (safe after the length check), 26-slot compare. Couldn't get the single-array form unaided — after a hint (`freqS[i] - freqT[i] != 0` → store the difference) wrote `++` for `s`, `--` for `t`, check all zero. |
 | 2026-11-23 | 167 | Two Sum II — Input Array Is Sorted | Easy | Two Pointers | 1 | **Review** (not a new solve — Stats/Pattern Targets unchanged). Next-day retry after yesterday's fail. **Pass, conf 4** — self-graded 5, settled on 4 after discussion (Q2/Q3 nudges). Q1 clean: cited O(1)-space as why the hashmap is out, binary search O(n log n) vs. two-pointer O(n). Q2 discard proof built himself for the first time in three sessions — first draft checked only `left+1` and stopped at the element inequality; after a nudge generalized to every `k ≥ left` and carried it to the sum (> target), and explained indices below `left` as already eliminated. Q3: reasoned from "elements can't be the same" — refined to same *index*, not value (`[3,3]` target 6 is valid). Java code correct first try: three-way branch, `left < right`, 1-indexed return. |
 | 2026-11-22 | 167 | Two Sum II — Input Array Is Sorted | Easy | Two Pointers | 1 | **Review** (not a new solve — Stats/Pattern Targets unchanged). **Fail, conf 2** (self-graded 2 on recommendation) after 84 days. Reached for per-element binary search (O(n log n), O(1)) first; didn't cite the O(1)-space constraint as why the hashmap is out. Needed the converge-from-both-ends hint for the O(n) approach. Q2 discard proof given after two partial attempts ("left already moved forward"). Q3 picked `<` but reasoned from the one-solution guarantee rather than "`left == right` = same element twice". Code after the hint correct and clean: three-way branch, `left < right`, 1-indexed return. |
 | 2026-11-22 | 1 | Two Sum | Easy | Arrays & Hashing | 1 | **Review** (not a new solve — Stats/Pattern Targets unchanged). 84 days since last review, conf 3 (self-graded — couldn't produce the check-before-insert correctness reason). Java one-pass: complement check, then `put`. Q1 brute force O(n²) correct but omitted the O(n) space trade until asked. Q2 order right, reason missing — after a `[3,3]` trace, stated insert-first finds itself (`[0,0]`). Same nudge needed in August. Q3 clean (key = number for O(1) lookup by value, value = index to return). Nit repeated in Java: `containsKey` + `get` = two lookups; single `get` + null check. |
@@ -59,6 +60,7 @@
 | 125 | Valid Palindrome | 2026-11-22 | 1 | 2.28 | 3 | 2026-11-25 | 0 | 0 |
 | 1 | Two Sum | 2026-11-22 | 1 | 2.46 | 3 | 2026-11-25 | 0 | 0 |
 | 167 | Two Sum II — Input Array Is Sorted | 2026-11-23 | 1 | 2.38 | 3 | 2026-11-26 | 0 | 0 |
+| 242 | Valid Anagram | 2026-11-23 | 0 | 2.50 | 3 | 2026-11-26 | 0 | 0 |
 
 ---
 
@@ -87,7 +89,7 @@
 
 | Pattern | Target | Solved | Gap | Last New | Days Stale | Priority |
 |---------|--------|--------|-----|----------|------------|----------|
-| Arrays & Hashing | 10 | 1 | **9** | 2026-07-18 | 0 | 🔥 urgent |
+| Arrays & Hashing | 10 | 2 | **8** | 2026-11-23 | 0 | 🔥 urgent |
 | Two Pointers | 5 | 2 | **3** | 2026-07-18 | 0 | 🔥 urgent |
 | Sliding Window | 6 | 2 | **4** | 2026-07-19 | 0 | 🔥 urgent |
 | Stack | 7 | 0 | **7** | never | — | 🔥 urgent |
@@ -110,7 +112,7 @@
 
 | Category | Problems Solved | Coverage Notes |
 |----------|----------------|----------------|
-| Arrays & Hashing | 1 | Started — hashmap complement trick (#1) |
+| Arrays & Hashing | 2 | Hashmap complement trick (#1); fixed-alphabet frequency array, single balance array `++`/`--` (#242) |
 | Two Pointers | 2 | sorted-array converge (#167), mirror-compare + in-place skip (#125) |
 | Sliding Window | 2 | Running-minimum (#121); fixed-size window slide with subtract/add delta (#643) |
 | Stack | 0 | Not started |
@@ -174,6 +176,12 @@
 - Overflow aside: `numbers[left] + numbers[right]` safe under ±1000 constraints; with large values compare against `target - numbers[right]`. Same trap as `mid = (lo + hi) / 2`.
 - Grading calibration held for the second day running: self-graded 5, agreed on 4 for nudge-dependent reasoning.
 - SM-2: Fails 1→0, Reps 0→1, EF 2.38 (unchanged at grade 4), Interval 3 → next 2026-11-26.
+- #242 Valid Anagram — **first new problem since 2026-07-19** (127 days). Conf 5, 2 submissions. Arrays & Hashing 1→2.
+- Two-array solution independent and O(n)/O(1). Single-array version needed a hint: the final check `freqS[i] != freqT[i]` is `freqS[i] - freqT[i] != 0`, so store only the difference.
+- Aha: you don't need each string's counts, only whether they **balance** — `++` for `s`, `--` for `t`, all zeros at the end. Same "store only what you'll compare" instinct as #1's complement.
+- Early exit: in the interleaved loop a slot can go negative mid-way on valid input (`"ab"`/`"ba"`), so no early return there. Count all of `s` first, then decrement for `t` and return false on any negative — with equal lengths that also removes the final 26-slot scan.
+- Q2 slip: stated sort as both O(n) and O(n log n). Sorting is O(n log n) time; the O(n) piece is the `toCharArray` copy (Java strings are immutable).
+- New SR entry defaults → next 2026-11-26.
 
 ### 2026-11-22 — Session 6
 - 1 day since last entry → normal session; warm-up sprint continues. Due: #121, #125 (next-day retries after fails), #1, #167 (81 days overdue; decay ratio ≈ 28 → Reps 1→0).
