@@ -10,6 +10,7 @@
 
 | Week | Completed | Target | Status |
 |------|-----------|--------|--------|
+| 2026-11-23 – 2026-11-29 | 0 new (1 review) | 3 | 🔄 in progress |
 | 2026-11-16 – 2026-11-22 | 0 new (7 reviews) | 3 | 🔄 warm-up sprint after 82-day gap |
 | 2026-08-31 – 2026-09-06 | 0 new (1 review) | 3 | 🔄 warm-up sprint continues |
 | 2026-08-24 – 2026-08-30 | 0 new (2 reviews) | 3 | 🔄 warm-up sprint after 42-day gap |
@@ -29,6 +30,7 @@
 
 | Date | # | Title | Difficulty | Category | Attempts | Notes |
 |------|---|-------|------------|----------|----------|-------|
+| 2026-11-23 | 167 | Two Sum II — Input Array Is Sorted | Easy | Two Pointers | 1 | **Review** (not a new solve — Stats/Pattern Targets unchanged). Next-day retry after yesterday's fail. **Pass, conf 4** — self-graded 5, settled on 4 after discussion (Q2/Q3 nudges). Q1 clean: cited O(1)-space as why the hashmap is out, binary search O(n log n) vs. two-pointer O(n). Q2 discard proof built himself for the first time in three sessions — first draft checked only `left+1` and stopped at the element inequality; after a nudge generalized to every `k ≥ left` and carried it to the sum (> target), and explained indices below `left` as already eliminated. Q3: reasoned from "elements can't be the same" — refined to same *index*, not value (`[3,3]` target 6 is valid). Java code correct first try: three-way branch, `left < right`, 1-indexed return. |
 | 2026-11-22 | 167 | Two Sum II — Input Array Is Sorted | Easy | Two Pointers | 1 | **Review** (not a new solve — Stats/Pattern Targets unchanged). **Fail, conf 2** (self-graded 2 on recommendation) after 84 days. Reached for per-element binary search (O(n log n), O(1)) first; didn't cite the O(1)-space constraint as why the hashmap is out. Needed the converge-from-both-ends hint for the O(n) approach. Q2 discard proof given after two partial attempts ("left already moved forward"). Q3 picked `<` but reasoned from the one-solution guarantee rather than "`left == right` = same element twice". Code after the hint correct and clean: three-way branch, `left < right`, 1-indexed return. |
 | 2026-11-22 | 1 | Two Sum | Easy | Arrays & Hashing | 1 | **Review** (not a new solve — Stats/Pattern Targets unchanged). 84 days since last review, conf 3 (self-graded — couldn't produce the check-before-insert correctness reason). Java one-pass: complement check, then `put`. Q1 brute force O(n²) correct but omitted the O(n) space trade until asked. Q2 order right, reason missing — after a `[3,3]` trace, stated insert-first finds itself (`[0,0]`). Same nudge needed in August. Q3 clean (key = number for O(1) lookup by value, value = index to return). Nit repeated in Java: `containsKey` + `get` = two lookups; single `get` + null check. |
 | 2026-11-22 | 125 | Valid Palindrome | Easy | Two Pointers | 1 | **Review** (not a new solve — Stats/Pattern Targets unchanged). Next-day retry after yesterday's fail. **Pass, conf 4** — self-graded 5, settled on 4 after discussion (one nudge). Q1 clean (pre-clean O(n), in-place O(1) — yesterday's slip fixed). Q3 clean (`'0'`=48 vs `'P'`=80, use `Character.toLowerCase`). Q2 ambiguous ("bound check after the skip") — traced the after-loop version on `".,"` and identified the `StringIndexOutOfBoundsException` himself. Code identical to yesterday, guard inside the left loop body. Sentinel answer close: said "leftmost char is alphanumeric" — refined to `s[left]` alphanumeric **and** `left ≤ right`. |
@@ -53,10 +55,10 @@
 | # | Title | Last Review | Reps | EF | Interval (d) | Next Review | Fails | Skips |
 |---|-------|-------------|------|------|--------------|-------------|-------|-------|
 | 643 | Maximum Average Subarray I | 2026-11-21 | 1 | 2.70 | 3 | 2026-11-24 | 0 | 0 |
-| 167 | Two Sum II — Input Array Is Sorted | 2026-11-22 | 0 | 2.38 | 1 | 2026-11-23 | 1 | 0 |
 | 121 | Best Time to Buy and Sell Stock | 2026-11-22 | 1 | 2.38 | 3 | 2026-11-25 | 0 | 0 |
 | 125 | Valid Palindrome | 2026-11-22 | 1 | 2.28 | 3 | 2026-11-25 | 0 | 0 |
 | 1 | Two Sum | 2026-11-22 | 1 | 2.46 | 3 | 2026-11-25 | 0 | 0 |
+| 167 | Two Sum II — Input Array Is Sorted | 2026-11-23 | 1 | 2.38 | 3 | 2026-11-26 | 0 | 0 |
 
 ---
 
@@ -131,7 +133,7 @@
 *(use this to prioritize new problems — fills in as you go)*
 
 - **Reasoning decays faster than code** (surfaced 2026-08-31 on #125). After 42 days he re-wrote a correct O(1)-space solution first try but could not recall the two variants, the reason for the skip guard, or the `"0P"` case-fold trap. Implication for reviews: lead with the pre-code questions and grade on those, since a clean solve alone overstates retention. **Confirmed 2026-11-21:** #125's guard and `"0P"` questions went blank on two reviews in a row; #121's approach itself was gone. **Escalated:** at 125 days #121's approach itself was gone (fail, needed old submission). Long gaps are the root problem — steady cadence matters more than any single review. **Recovering 2026-11-22:** next-day retries of #121 and #125 both passed with pre-code reasoning largely intact — short-interval re-drill after a fail works.
-- **Justifying an elimination, not just performing it** (surfaced 2026-08-30 on #167). Pointer/branch moves are correct, but the stated reason defends the direction chosen rather than proving the discarded candidates are all invalid. Matters the moment loop bounds get non-obvious — Binary Search will punish it. Re-check when Binary Search opens. **Recurred 2026-11-22 on #1:** check-before-insert ordering performed correctly but the correctness reason (no self-pairing on `[3,3]`) needed a trace — same nudge as August. **Recurred again 2026-11-22 on #167:** discard proof had to be given in full after two partial attempts.
+- **Justifying an elimination, not just performing it** (surfaced 2026-08-30 on #167). Pointer/branch moves are correct, but the stated reason defends the direction chosen rather than proving the discarded candidates are all invalid. Matters the moment loop bounds get non-obvious — Binary Search will punish it. Re-check when Binary Search opens. **Recurred 2026-11-22 on #1:** check-before-insert ordering performed correctly but the correctness reason (no self-pairing on `[3,3]`) needed a trace — same nudge as August. **Recurred again 2026-11-22 on #167:** discard proof had to be given in full after two partial attempts. **Improving 2026-11-23 on #167:** next-day retry — built the proof himself with one nudge (generalize from `left+1` to every `k ≥ left`, carry the inequality to the sum). Precision is the remaining gap: name *every* candidate eliminated, and finish the chain to the conclusion.
 
 ---
 
@@ -163,6 +165,15 @@
 - `"0P"` trap: `abs(a - b) == 32` as a case-fold. `'0'`=48, `'P'`=80 differ by exactly 32, so the shortcut returns true on a non-palindrome. ±32 is a fact about ASCII's letter range, not a general case-fold; digits have no case. Use `lowercaseChar()`.
 - Noted for him: when a skip loop exits on `left == right`, the code compares that char with itself — always passes, and cheaper than branching around it.
 - **Pattern across the sprint:** muscle memory for code survived 42 days; the derivations did not. #1 and #167 hid this because their reasoning is short enough to re-derive live. Reviews should keep leading with the questions, not the code.
+
+### 2026-11-23 — Session 7
+- 1 day since last entry → normal session. Due: #167 (next-day retry after fail). New week opens 0/3.
+- #167 Two Sum II — **pass, conf 4** (self-graded 5, settled on 4 — Q2/Q3 needed nudges). On time, no decay.
+- Discard proof: first time in three sessions he produced it himself. First draft only checked `left+1` and stopped at `numbers[left+1] ≥ numbers[left]`; nudged to all `k` in `[left, right-1]` and to the sum: `numbers[k] + numbers[right] ≥ current sum > target`. Indices below `left` = already eliminated by earlier `left++` moves (same argument flipped). Each comparison eliminates a whole row/column → O(n). Binary Search is the same move, eliminating half.
+- Q3 precision: "can't use the same element twice" means same *index*, not value — `[3,3]` target 6 → `[1,2]` is valid.
+- Overflow aside: `numbers[left] + numbers[right]` safe under ±1000 constraints; with large values compare against `target - numbers[right]`. Same trap as `mid = (lo + hi) / 2`.
+- Grading calibration held for the second day running: self-graded 5, agreed on 4 for nudge-dependent reasoning.
+- SM-2: Fails 1→0, Reps 0→1, EF 2.38 (unchanged at grade 4), Interval 3 → next 2026-11-26.
 
 ### 2026-11-22 — Session 6
 - 1 day since last entry → normal session; warm-up sprint continues. Due: #121, #125 (next-day retries after fails), #1, #167 (81 days overdue; decay ratio ≈ 28 → Reps 1→0).
