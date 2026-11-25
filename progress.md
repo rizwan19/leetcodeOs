@@ -10,7 +10,7 @@
 
 | Week | Completed | Target | Status |
 |------|-----------|--------|--------|
-| 2026-11-23 – 2026-11-29 | 1 new (2 reviews) | 3 | 🔄 in progress |
+| 2026-11-23 – 2026-11-29 | 1 new (3 reviews) | 3 | 🔄 in progress |
 | 2026-11-16 – 2026-11-22 | 0 new (7 reviews) | 3 | 🔄 warm-up sprint after 82-day gap |
 | 2026-08-31 – 2026-09-06 | 0 new (1 review) | 3 | 🔄 warm-up sprint continues |
 | 2026-08-24 – 2026-08-30 | 0 new (2 reviews) | 3 | 🔄 warm-up sprint after 42-day gap |
@@ -30,6 +30,7 @@
 
 | Date | # | Title | Difficulty | Category | Attempts | Notes |
 |------|---|-------|------------|----------|----------|-------|
+| 2026-11-25 | 121 | Best Time to Buy and Sell Stock | Easy | Sliding Window | 1 | **Review** (not a new solve — Stats/Pattern Targets unchanged). On time. **Pass, conf 5** (self-graded; coach suggested 4 for Q3 nudges, user kept 5). Q1 clean (O(n²), re-scans the future per buy day). Q2 clean (running min). Q3 first answer "min from the past ≤ current price" — `[7,1]` counterexample drew out the min-update-before-profit ordering; one follow-up drew out the second guarantee (`maxProfit = 0` init + `Math.max`). Named both this time (11-22 named only `Math.max`). Code identical to prior solves, correct first try. |
 | 2026-11-25 | 125 | Valid Palindrome | Easy | Two Pointers | 1 | **Review** (not a new solve — Stats/Pattern Targets unchanged). On time. **Pass, conf 4** — self-graded 5, settled on 4 after discussion (Q2 nudge). Q3 clean (`'0'`/`'P'` differ by 32 → `Character.toLowerCase`). Q1 needed a second round, partly due to coach wording; then stated it fully: unguarded skip loop on `".,"` reaches `charAt(2)` → out of bounds, and the outer `left < right` is only re-checked between iterations. Q2 first answered `left < right`; the `",a"` trace (`left == right == 1`) corrected it to `left ≤ right`. Code identical to the last two reviews, correct first try. |
 | 2026-11-23 | 242 | Valid Anagram | Easy | Arrays & Hashing | 2 | First new problem since July. Conf 5 (self-graded). Pre-code: Q1 clean (same length + same per-char counts); Q2 right on sort = O(n log n) and counting instead, but muddled it with "time O(n) too"; Q3 clean (`int[26]`, O(1) space since size is fixed). Solved independently with two frequency arrays, single loop (safe after the length check), 26-slot compare. Couldn't get the single-array form unaided — after a hint (`freqS[i] - freqT[i] != 0` → store the difference) wrote `++` for `s`, `--` for `t`, check all zero. |
 | 2026-11-23 | 167 | Two Sum II — Input Array Is Sorted | Easy | Two Pointers | 1 | **Review** (not a new solve — Stats/Pattern Targets unchanged). Next-day retry after yesterday's fail. **Pass, conf 4** — self-graded 5, settled on 4 after discussion (Q2/Q3 nudges). Q1 clean: cited O(1)-space as why the hashmap is out, binary search O(n log n) vs. two-pointer O(n). Q2 discard proof built himself for the first time in three sessions — first draft checked only `left+1` and stopped at the element inequality; after a nudge generalized to every `k ≥ left` and carried it to the sum (> target), and explained indices below `left` as already eliminated. Q3: reasoned from "elements can't be the same" — refined to same *index*, not value (`[3,3]` target 6 is valid). Java code correct first try: three-way branch, `left < right`, 1-indexed return. |
@@ -57,11 +58,11 @@
 | # | Title | Last Review | Reps | EF | Interval (d) | Next Review | Fails | Skips |
 |---|-------|-------------|------|------|--------------|-------------|-------|-------|
 | 643 | Maximum Average Subarray I | 2026-11-21 | 1 | 2.70 | 3 | 2026-11-24 | 0 | 0 |
-| 121 | Best Time to Buy and Sell Stock | 2026-11-22 | 1 | 2.38 | 3 | 2026-11-25 | 0 | 0 |
 | 1 | Two Sum | 2026-11-22 | 1 | 2.46 | 3 | 2026-11-25 | 0 | 0 |
 | 167 | Two Sum II — Input Array Is Sorted | 2026-11-23 | 1 | 2.38 | 3 | 2026-11-26 | 0 | 0 |
 | 242 | Valid Anagram | 2026-11-23 | 0 | 2.50 | 3 | 2026-11-26 | 0 | 0 |
 | 125 | Valid Palindrome | 2026-11-25 | 2 | 2.28 | 7 | 2026-12-02 | 0 | 0 |
+| 121 | Best Time to Buy and Sell Stock | 2026-11-25 | 2 | 2.48 | 7 | 2026-12-02 | 0 | 0 |
 
 ---
 
@@ -175,6 +176,9 @@
 - Q2 slip: invariant stated as `left < right`. `",a"` → left skip stops at `left == right == 1`, so it's `left ≤ right`. Also refined: the outer loop doesn't break immediately — the iteration finishes with a harmless self-compare of `s[1]`, then `left++/right--` ends it.
 - Q1: original question was misread as "delete the skip loop" (coach wording ambiguous). Once clarified: `charAt(2)` throws; outer condition is only checked between iterations.
 - SM-2: on time, Reps 1→2, EF 2.28 (unchanged at grade 4), Interval 7 → next 2026-12-02.
+- #121 Best Time to Buy and Sell Stock — **pass, conf 5** (user's grade; coach suggested 4 — Q3 needed a counterexample + one follow-up). Q1/Q2 clean, including the O(n²) brute force that slipped on 11-22.
+- Q3 non-negativity: two independent guarantees. (1) Min updated before profit → `minPrice ≤ price` → every candidate ≥ 0. (2) `maxProfit = 0` + `Math.max` → a negative candidate can never win, even with the lines swapped. First answer ("min from the past ≤ price") is false for a strictly-past min — `[7,1]` gives −6.
+- SM-2: on time, Reps 1→2, EF 2.38→2.48, Interval 7 → next 2026-12-02.
 
 ### 2026-11-23 — Session 7
 - 1 day since last entry → normal session. Due: #167 (next-day retry after fail). New week opens 0/3.
